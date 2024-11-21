@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjFinalTeam4.Data;
 
@@ -10,9 +11,11 @@ using ProjFinalTeam4.Data;
 namespace ProjFinalTeam4.Migrations
 {
     [DbContext(typeof(ProjFinalTeam4Context))]
-    partial class ProjFinalTeam4ContextModelSnapshot : ModelSnapshot
+    [Migration("20241121195217_ProjFinalTeam4")]
+    partial class ProjFinalTeam4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

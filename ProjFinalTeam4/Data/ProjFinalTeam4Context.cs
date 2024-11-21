@@ -15,5 +15,6 @@ namespace ProjFinalTeam4.Data
         }
 
         public DbSet<ProjFinalTeam4.Models.Hobbies> Hobbies { get; set; } = default!;
+        public DbSet<ProjFinalTeam4.Models.Travel> Travel { get; set; } = default!;
     }
 }
