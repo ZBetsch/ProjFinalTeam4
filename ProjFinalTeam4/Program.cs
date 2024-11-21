@@ -1,4 +1,9 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using ProjFinalTeam4.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<ProjFinalTeam4Context>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ProjFinalTeam4Context") ?? throw new InvalidOperationException("Connection string 'ProjFinalTeam4Context' not found.")));
 
 // Add services to the container.
 
