@@ -1,7 +1,10 @@
-﻿namespace ProjFinalTeam4.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ProjFinalTeam4.Models
 {
     public class ExtracurricularActivity
     {
+        [Key]
         public int activityId { get; set; }
         public string activityName { get; set; }
         public string activityDescription { get; set; }
