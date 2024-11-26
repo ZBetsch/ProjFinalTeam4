@@ -23,86 +23,76 @@ namespace ProjFinalTeam4.Controllers
 
         // GET: api/Hobbies
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Hobbies>>> GetHobbies()
+        public IActionResult GetHobbies()
         {
-            return await _context.Hobbies.ToListAsync();
+            return Ok(_context.Hobbies.ToList());
         }
 
         // GET: api/Hobbies/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Hobbies>> GetHobbies(int id)
+        public IActionResult GetHobbies(int id)
         {
-            var hobbies = await _context.Hobbies.FindAsync(id);
+            Hobbies hobbies = _context.Hobbies.Find(id);
 
+            //if there is no hobby with the specified parameter
             if (hobbies == null)
             {
                 return NotFound();
             }
 
-            return hobbies;
+            //else not needed, return exits the block. If the if statement is true, the return inside will exit the code
+            return Ok(hobbies);
         }
 
         // PUT: api/Hobbies/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutHobbies(int id, Hobbies hobbies)
+        public IActionResult PutHobbies(Hobbies hobbies)
         {
-            if (id != hobbies.hobbiesId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(hobbies).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                _context.Entry(hobbies).State = EntityState.Modified;
+                _context.SaveChanges();
             }
-            catch (DbUpdateConcurrencyException)
+            catch
             {
-                if (!HobbiesExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return NotFound();
             }
-
-            return NoContent();
+            return Ok();
         }
 
-        // POST: api/Hobbies
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Hobbies>> PostHobbies(Hobbies hobbies)
+        public IActionResult PostHobbies(Hobbies hobbies)
         {
             _context.Hobbies.Add(hobbies);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetHobbies", new { id = hobbies.hobbiesId }, hobbies);
+            //Must save changes
+            _context.SaveChanges();
+            return Ok();
         }
 
         // DELETE: api/Hobbies/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteHobbies(int id)
+        public IActionResult DeleteHobby(int id)
         {
-            var hobbies = await _context.Hobbies.FindAsync(id);
+            //find and store the student obj
+            Hobbies hobbies = _context.Hobbies.Find(id);
+
+            //check if student exists, exit if not
             if (hobbies == null)
+                return NotFound();
+
+            //remove the student using the _context action method
+            try
+            {
+                _context.Hobbies.Remove(hobbies);
+                _context.SaveChanges();
+            }
+
+            catch (Exception ex)
             {
                 return NotFound();
             }
 
-            _context.Hobbies.Remove(hobbies);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool HobbiesExists(int id)
-        {
-            return _context.Hobbies.Any(e => e.hobbiesId == id);
+            return Ok();
         }
     }
 }
