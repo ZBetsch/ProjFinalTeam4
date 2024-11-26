@@ -73,14 +73,14 @@ namespace ProjFinalTeam4.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteHobby(int id)
         {
-            //find and store the student obj
+            //find and store the hobby obj
             Hobbies hobbies = _context.Hobbies.Find(id);
 
-            //check if student exists, exit if not
+            //check if hobby exists, exit if not
             if (hobbies == null)
                 return NotFound();
 
-            //remove the student using the _context action method
+            //remove the hobby using the _context action method
             try
             {
                 _context.Hobbies.Remove(hobbies);
