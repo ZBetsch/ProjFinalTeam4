@@ -29,9 +29,16 @@ namespace ProjFinalTeam4.Controllers
         }
 
         // GET: api/TeamData/5
-        [HttpGet("{id}")]
-        public IActionResult GetTeamData(int id)
+        [HttpGet("{id?}")]
+        public IActionResult GetTeamData(int? id)
         {
+            //if the id is left blank or set to 0, return the first 5 results from the table
+            if (!id.HasValue || id == 0)
+            {
+                var topFiveTeamData = _context.TeamData.Take(5).ToList();
+                return Ok(topFiveTeamData);
+            }
+
             TeamData teamdata = _context.TeamData.Find(id);
 
             //if there is no teamdata with the specified parameter
@@ -40,7 +47,6 @@ namespace ProjFinalTeam4.Controllers
                 return NotFound();
             }
 
-            //else not needed, return exits the block. If the if statement is true, the return inside will exit the code
             return Ok(teamdata);
         }
 

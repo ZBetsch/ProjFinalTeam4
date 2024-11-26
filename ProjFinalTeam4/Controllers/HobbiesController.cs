@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ProjFinalTeam4.Data;
 using ProjFinalTeam4.Models;
 
+
 namespace ProjFinalTeam4.Controllers
 {
     [Route("api/[controller]")]
@@ -28,10 +29,17 @@ namespace ProjFinalTeam4.Controllers
             return Ok(_context.Hobbies.ToList());
         }
 
-        // GET: api/Hobbies/5
-        [HttpGet("{id}")]
-        public IActionResult GetHobbies(int id)
+        // GET: api/Hobbies/{id?}
+        [HttpGet("{id?}")]
+        public IActionResult GetHobbies(int? id)
         {
+            //if the id is left blank or set to 0, return the first 5 results from the table
+            if (!id.HasValue || id == 0)
+            {
+                var topFiveHobbies = _context.Hobbies.Take(5).ToList();
+                return Ok(topFiveHobbies);
+            }
+
             Hobbies hobbies = _context.Hobbies.Find(id);
 
             //if there is no hobby with the specified parameter
@@ -40,11 +48,10 @@ namespace ProjFinalTeam4.Controllers
                 return NotFound();
             }
 
-            //else not needed, return exits the block. If the if statement is true, the return inside will exit the code
             return Ok(hobbies);
         }
 
-        // PUT: api/Hobbies/5
+        // PUT: api/Hobbies/{id}
         [HttpPut("{id}")]
         public IActionResult PutHobbies(Hobbies hobbies)
         {
@@ -69,7 +76,7 @@ namespace ProjFinalTeam4.Controllers
             return Ok();
         }
 
-        // DELETE: api/Hobbies/5
+        // DELETE: api/Hobbies/{id}
         [HttpDelete("{id}")]
         public IActionResult DeleteHobby(int id)
         {
