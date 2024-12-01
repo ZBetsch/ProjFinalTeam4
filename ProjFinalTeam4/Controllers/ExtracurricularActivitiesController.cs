@@ -31,9 +31,18 @@ namespace ProjFinalTeam4.Controllers
 
         // GET(ID)
         [HttpGet("{id}")]
-        public IActionResult GetTravel(int id)
+        public IActionResult GetTravel(int? id)
         {
+         
+
+            //if the id is left blank or set to 0, return the first 5 results from the table
+            if (!id.HasValue || id == 0)
+            {
+                var topFiveHobbies = _context.Hobbies.Take(5).ToList();
+                return Ok(topFiveHobbies);
+            }
             Travel travel = _context.Travel.Find(id);
+
             if (travel == null)
                 return NotFound();
             return Ok(travel);
