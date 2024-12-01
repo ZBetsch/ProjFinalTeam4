@@ -24,37 +24,37 @@ namespace ProjFinalTeam4.Controllers
 
         // GET
         [HttpGet]
-        public IActionResult GetTravel()
+        public IActionResult GetExtracurricularActivity()
         {
-            return Ok(_context.Travel.ToList());
+            return Ok(_context.ExtracurricularActivity.ToList());
         }
 
         // GET(ID)
         [HttpGet("{id}")]
-        public IActionResult GetTravel(int? id)
+        public IActionResult GetExtracurricularActivity(int? id)
         {
          
 
             //if the id is left blank or set to 0, return the first 5 results from the table
             if (!id.HasValue || id == 0)
             {
-                var topFiveHobbies = _context.Hobbies.Take(5).ToList();
-                return Ok(topFiveHobbies);
+                var topFiveActivities = _context.ExtracurricularActivity.Take(5).ToList();
+                return Ok(topFiveActivities);
             }
-            Travel travel = _context.Travel.Find(id);
+            ExtracurricularActivity activity = _context.ExtracurricularActivity.Find(id);
 
-            if (travel == null)
+            if (activity == null)
                 return NotFound();
-            return Ok(travel);
+            return Ok(activity);
         }
 
         // PUT
         [HttpPut("{id}")]
-        public IActionResult PutTravel(Travel travel)
+        public IActionResult PutExtracurrivularActivity(ExtracurricularActivity activity)
         {
             try
             {
-                _context.Entry(travel).State = EntityState.Modified;
+                _context.Entry(activity).State = EntityState.Modified;
                 _context.SaveChanges();
             }
             catch (Exception ex)
@@ -66,41 +66,41 @@ namespace ProjFinalTeam4.Controllers
 
         // POST
         [HttpPost]
-        public IActionResult PostTravel(Travel travel)
+        public IActionResult PostTravel(ExtracurricularActivity activity)
         {
-            _context.Travel.Add(travel);
+            _context.ExtracurricularActivity.Add(activity);
             _context.SaveChanges();
             return Ok();
         }
 
         // DELETE
         [HttpDelete("{id}")]
-        public IActionResult DeleteTravel(int id)
+        public IActionResult DeleteExtracurricularActivity(int id)
         {
-            Travel travel = _context.Travel.Find(id);
-            if (travel == null)
+            ExtracurricularActivity activity = _context.ExtracurricularActivity.Find(id);
+            if (activity == null)
                 return NotFound();
 
             try
             {
-                _context.Travel.Remove(travel);
+                _context.ExtracurricularActivity.Remove(activity);
                 _context.SaveChanges();
             }
             catch (Exception ex)
             {
                 return NotFound();
             }
-            _context.Travel.Remove(travel);
+            _context.ExtracurricularActivity.Remove(activity);
 
             return Ok();
         }
 
         [HttpPut]
-        public IActionResult PutStudent(Travel travel)
+        public IActionResult PutExtracurricularActivity(ExtracurricularActivity activity)
         {
             try
             {
-                _context.Entry(travel).State = EntityState.Modified;
+                _context.Entry(activity).State = EntityState.Modified;
                 _context.SaveChanges();
             }
             catch (Exception ex)
