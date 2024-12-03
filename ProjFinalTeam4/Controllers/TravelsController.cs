@@ -36,8 +36,8 @@ namespace ProjFinalTeam4.Controllers
             //if the id is left blank or set to 0, return the first 5 results from the table
             if (!id.HasValue || id == 0)
             {
-                var topFiveHobbies = _context.Hobbies.Take(5).ToList();
-                return Ok(topFiveHobbies);
+                var topFiveTravels = _context.Travel.Take(5).ToList();
+                return Ok(topFiveTravels);
             }
             Travel travel = _context.Travel.Find(id);
 
