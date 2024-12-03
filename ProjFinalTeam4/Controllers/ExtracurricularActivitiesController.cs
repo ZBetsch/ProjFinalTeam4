@@ -66,7 +66,7 @@ namespace ProjFinalTeam4.Controllers
 
         // POST
         [HttpPost]
-        public IActionResult PostTravel(ExtracurricularActivity activity)
+        public IActionResult PostExtracurricularActivity(ExtracurricularActivity activity)
         {
             _context.ExtracurricularActivity.Add(activity);
             _context.SaveChanges();
