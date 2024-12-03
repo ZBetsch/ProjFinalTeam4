@@ -34,21 +34,12 @@ namespace ProjFinalTeam4.Controllers
         public IActionResult GetHobbies(int? id)
         {
             //if the id does not exist or is set to 0, return the first 5 results from the table
-            var x = _context.Hobbies.Find(id);
-            if (x == null || id == 0)
+            var hobbies = _context.Hobbies.Find(id);
+            if (hobbies == null || id == 0)
             {
                 var topFiveHobbies = _context.Hobbies.Take(5).ToList();
                 return Ok(topFiveHobbies);
             }
-
-            Hobbies hobbies = _context.Hobbies.Find(id);
-
-            //if there is no hobby with the specified parameter
-            if (hobbies == null)
-            {
-                return NotFound();
-            }
-
             return Ok(hobbies);
         }
 
