@@ -32,8 +32,9 @@ namespace ProjFinalTeam4.Controllers
         [HttpGet("{id?}")]
         public IActionResult GetTeamData(int? id)
         {
-            //if the id is left blank or set to 0, return the first 5 results from the table
-            if (!id.HasValue || id == 0)
+            //if the id does not exist or is set to 0, return the first 5 results from the table
+            var x = _context.TeamData.Find(id);
+            if (x == null || id == 0)
             {
                 var topFiveTeamData = _context.TeamData.Take(5).ToList();
                 return Ok(topFiveTeamData);
