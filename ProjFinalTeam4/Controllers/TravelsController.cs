@@ -93,20 +93,7 @@ namespace ProjFinalTeam4.Controllers
             return Ok();
         }
 
-        [HttpPut]
-        public IActionResult PutStudent(Travel travel)
-        {
-            try
-            {
-                _context.Entry(travel).State = EntityState.Modified;
-                _context.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                return NotFound();
-            }
-            return Ok();
-        }
+     
     }
 }
             // GET: api/Travels
