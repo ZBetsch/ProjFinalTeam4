@@ -31,18 +31,21 @@ namespace ProjFinalTeam4.Controllers
         [HttpGet("{id}")]
         public IActionResult GetTravel(int? id)
         {
-
-
-            //if the id is left blank or set to 0, return the first 5 results from the table
-            if (!id.HasValue || id == 0)
+            //if the id does not exist or is set to 0, return the first 5 results from the table
+            var x = _context.Travel.Find(id);
+            if (x == null || id == 0)
             {
-                var topFiveHobbies = _context.Hobbies.Take(5).ToList();
-                return Ok(topFiveHobbies);
+                var topFiveTravels = _context.Travel.Take(5).ToList();
+                return Ok(topFiveTravels);
             }
+
             Travel travel = _context.Travel.Find(id);
 
+            //if there is no hobby with the specified parameter
             if (travel == null)
+            {
                 return NotFound();
+            }
             return Ok(travel);
         }
 
@@ -93,20 +96,6 @@ namespace ProjFinalTeam4.Controllers
             return Ok();
         }
 
-        [HttpPut]
-        public IActionResult PutStudent(Travel travel)
-        {
-            try
-            {
-                _context.Entry(travel).State = EntityState.Modified;
-                _context.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                return NotFound();
-            }
-            return Ok();
-        }
     }
 }
             // GET: api/Travels
