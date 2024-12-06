@@ -33,19 +33,25 @@ namespace ProjFinalTeam4.Controllers
         [HttpGet("{id}")]
         public IActionResult GetExtracurricularActivity(int? id)
         {
-         
 
-            //if the id is left blank or set to 0, return the first 5 results from the table
-            if (!id.HasValue || id == 0)
+
+            //if the id does not exist or is set to 0, return the first 5 results from the table
+            var x = _context.ExtracurricularActivity.Find(id);
+            if (x == null || id == 0)
             {
-                var topFiveActivities = _context.ExtracurricularActivity.Take(5).ToList();
-                return Ok(topFiveActivities);
+                var topFiveExtracurricularActivity = _context.ExtracurricularActivity.Take(5).ToList();
+                return Ok(topFiveExtracurricularActivity);
             }
-            ExtracurricularActivity activity = _context.ExtracurricularActivity.Find(id);
 
-            if (activity == null)
+            ExtracurricularActivity extracurricularActivity = _context.ExtracurricularActivity.Find(id);
+
+            //if there is no hobby with the specified parameter
+            if (extracurricularActivity == null)
+            {
                 return NotFound();
-            return Ok(activity);
+            }
+
+            return Ok(extracurricularActivity);
         }
 
         // PUT
@@ -66,7 +72,7 @@ namespace ProjFinalTeam4.Controllers
 
         // POST
         [HttpPost]
-        public IActionResult PostTravel(ExtracurricularActivity activity)
+        public IActionResult PostExtracurricularActivity(ExtracurricularActivity activity)
         {
             _context.ExtracurricularActivity.Add(activity);
             _context.SaveChanges();
@@ -95,19 +101,6 @@ namespace ProjFinalTeam4.Controllers
             return Ok();
         }
 
-        [HttpPut]
-        public IActionResult PutExtracurricularActivity(ExtracurricularActivity activity)
-        {
-            try
-            {
-                _context.Entry(activity).State = EntityState.Modified;
-                _context.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                return NotFound();
-            }
-            return Ok();
 
             //Below are Codes Generated Automatically:
             //// GET: api/ExtracurricularActivities
@@ -193,6 +186,5 @@ namespace ProjFinalTeam4.Controllers
             //{
             //    return _context.ExtracurricularActivity.Any(e => e.activityId == id);
             //}
-        }
     }
 }
