@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjFinalTeam4.Data;
 
@@ -11,9 +12,11 @@ using ProjFinalTeam4.Data;
 namespace ProjFinalTeam4.Migrations
 {
     [DbContext(typeof(ProjFinalTeam4Context))]
-    partial class ProjFinalTeam4ContextModelSnapshot : ModelSnapshot
+    [Migration("20241203182543_Cars")]
+    partial class Cars
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,37 +24,6 @@ namespace ProjFinalTeam4.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("ProjFinalTeam4.Models.Breakfast", b =>
-                {
-                    b.Property<int>("BreakfastId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BreakfastId"));
-
-                    b.Property<string>("BreakfastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BreakfastType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Calories")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FavoriteIngredient")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsHealthy")
-                        .HasColumnType("bit");
-
-                    b.HasKey("BreakfastId");
-
-                    b.ToTable("Breakfast");
-                });
 
             modelBuilder.Entity("ProjFinalTeam4.Models.Cars", b =>
                 {
